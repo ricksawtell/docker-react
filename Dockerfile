@@ -10,6 +10,10 @@ RUN npm run build
 # which is under the /app/build directory
 
 FROM nginx
+
+#Expose port number in AWS
+EXPOSE 80
+
 # Copy something over from the "builder" phase
 COPY --from=builder /app/build /usr/share/nginx/html
 
