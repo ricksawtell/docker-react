@@ -1,7 +1,7 @@
 # Build Phase.   We tagges this as builder
-FROM node:alpine as builder
+FROM node:alpine
 WORKDIR '/app'
-COPY package.json .
+COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
@@ -15,6 +15,6 @@ FROM nginx
 EXPOSE 80
 
 # Copy something over from the "builder" phase
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 #Don't need to add a start command here.  It's default command is start
